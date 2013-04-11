@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="utility" default="all">
+  
+  
+  <property file="utility.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module utility -->
+  
+  <dirname property="module.utility.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.utility" value="${compiler.args}"/>
+  
+  <property name="utility.output.dir" value="${module.utility.basedir}/out/production/utility"/>
+  <property name="utility.testoutput.dir" value="${module.utility.basedir}/out/test/utility"/>
+  
+  <path id="utility.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="utility.module.production.classpath"/>
+  
+  <path id="utility.runtime.production.module.classpath">
+    <pathelement location="${utility.output.dir}"/>
+  </path>
+  
+  <path id="utility.module.classpath">
+    <pathelement location="${utility.output.dir}"/>
+  </path>
+  
+  <path id="utility.runtime.module.classpath">
+    <pathelement location="${utility.testoutput.dir}"/>
+    <pathelement location="${utility.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.utility">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.utility">
+    <patternset refid="excluded.from.module.utility"/>
+  </patternset>
+  
+  <path id="utility.module.sourcepath">
+    <dirset dir="${module.utility.basedir}">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.utility" depends="compile.module.utility.production,compile.module.utility.tests" description="Compile module utility"/>
+  
+  <target name="compile.module.utility.production" description="Compile module utility; production classes">
+    <mkdir dir="${utility.output.dir}"/>
+    <javac destdir="${utility.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.utility}"/>
+      <bootclasspath refid="utility.module.bootclasspath"/>
+      <classpath refid="utility.module.production.classpath"/>
+      <src refid="utility.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.utility"/>
+    </javac>
+    
+    <copy todir="${utility.output.dir}">
+      <fileset dir="${module.utility.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.utility.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.utility.tests" depends="compile.module.utility.production" description="compile module utility; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.utility" description="cleanup module">
+    <delete dir="${utility.output.dir}"/>
+    <delete dir="${utility.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.utility" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.utility" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

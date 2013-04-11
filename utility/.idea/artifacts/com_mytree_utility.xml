@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="com.mytree.utility">
+    <output-path>$PROJECT_DIR$/out/artifacts/com_mytree_utility</output-path>
+    <root id="archive" name="com.mytree.utility.jar">
+      <element id="module-output" name="utility" />
+    </root>
+  </artifact>
+</component>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.mytree.utility.SMS;
 
 public class Main extends Activity {
 
@@ -33,19 +34,23 @@ public class Main extends Activity {
         });
     }
 
-    private void sendMessage(){
-        String phoneNo=((EditText)findViewById(R.id.txtPhoneNumber)).getText().toString().trim();
-        String message=((EditText)findViewById(R.id.txtMessage)).getText().toString().trim();
+    private void sendMessage() {
+        String phoneNo = ((EditText) findViewById(R.id.txtPhoneNumber)).getText().toString().trim();
+        String message = ((EditText) findViewById(R.id.txtMessage)).getText().toString().trim();
 
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(String.format("Phone:%s%n",phoneNo));
-        buffer.append(String.format("Message:%s",message));
+        //StringBuffer buffer=new StringBuffer();
+        //buffer.append(String.format("Phone:%s%n",phoneNo));
+        //buffer.append(String.format("Message:%s",message));
 
 //        new AlertDialog.Builder(this).setMessage(buffer.toString()).show();
 
-        SmsManager sms=SmsManager.getDefault();
-        PendingIntent intent=PendingIntent.getActivity(this,0,new Intent(),0);
-        sms.sendTextMessage(phoneNo,null,message,intent,null);
-        Toast.makeText(Main.this,"短信发送成功",Toast.LENGTH_LONG).show();
+        //SmsManager sms=SmsManager.getDefault();
+        //PendingIntent intent=PendingIntent.getActivity(this,0,new Intent(),0);
+        //sms.sendTextMessage(phoneNo,null,message,intent,null);
+        boolean result = SMS.send(this, phoneNo, message);
+        if (result == true)
+            Toast.makeText(Main.this, "短信发送成功", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(Main.this, "短信发送失败\n", Toast.LENGTH_LONG).show();
     }
 }

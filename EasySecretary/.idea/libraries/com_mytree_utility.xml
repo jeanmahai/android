@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.mytree.utility">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../utility/out/artifacts/com_mytree_utility/com.mytree.utility.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
