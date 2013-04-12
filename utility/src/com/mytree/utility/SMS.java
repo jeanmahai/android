@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.telephony.SmsManager;
 import android.widget.Toast;
+import android.Manifest;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,8 +70,10 @@ public class SMS {
                             String message,
                             final CallbackInterface sent,
                             final CallbackInterface delivered) {
+        if (!Permission.hasPermission(context, Manifest.permission.SEND_SMS, true)) {
+            return;
+        }
 
-        Result result = new Result(false);
         SmsManager sms = SmsManager.getDefault();
 
         //注册BroadcastReceiver
@@ -120,8 +122,9 @@ public class SMS {
         }
         return false;
     }
-    public static boolean isEmptyMessage(String message){
-        message=message.trim();
+
+    public static boolean isEmptyMessage(String message) {
+        message = message.trim();
         return message.isEmpty();
     }
 }

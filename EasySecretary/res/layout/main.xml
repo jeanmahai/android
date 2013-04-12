@@ -19,5 +19,15 @@
             android:layout_height="wrap_content"
             android:text="SEND"
             android:id="@+id/btnSend"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtConnectionState"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="GET CONNECTION"
+            android:id="@+id/btnGetConnection"/>
+
 </LinearLayout>
 
