@@ -13,7 +13,7 @@ bin/
 gen/
 .idea/misc.xml
 .idea/workspace.xml
-easysecretary.iml
+*.iml
 out/
 
 # Local configuration file (sdk path, etc)
