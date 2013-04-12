@@ -29,7 +29,6 @@ public class Main extends Activity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 sendMessage();
-//                new AlertDialog.Builder(view.getContext()).setMessage("send clicked").show();
             }
         });
     }
@@ -37,20 +36,9 @@ public class Main extends Activity {
     private void sendMessage() {
         String phoneNo = ((EditText) findViewById(R.id.txtPhoneNumber)).getText().toString().trim();
         String message = ((EditText) findViewById(R.id.txtMessage)).getText().toString().trim();
+        if(SMS.isPhoneNumber(phoneNo)&& !SMS.isEmptyMessage(message)){
+            SMS.send(this, phoneNo, message);
+        }
 
-        //StringBuffer buffer=new StringBuffer();
-        //buffer.append(String.format("Phone:%s%n",phoneNo));
-        //buffer.append(String.format("Message:%s",message));
-
-//        new AlertDialog.Builder(this).setMessage(buffer.toString()).show();
-
-        //SmsManager sms=SmsManager.getDefault();
-        //PendingIntent intent=PendingIntent.getActivity(this,0,new Intent(),0);
-        //sms.sendTextMessage(phoneNo,null,message,intent,null);
-        boolean result = SMS.send(this, phoneNo, message);
-        if (result == true)
-            Toast.makeText(Main.this, "短信发送成功", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(Main.this, "短信发送失败\n", Toast.LENGTH_LONG).show();
     }
 }
