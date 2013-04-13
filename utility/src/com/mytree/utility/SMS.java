@@ -100,7 +100,7 @@ public class SMS {
             }
         }, new IntentFilter(ACTION_SMS_DELIVERED));
 
-        if (message.length() > 70) {
+        if (message.length() <= 70) {
             //直接发送单个短信
             sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
         } else {
