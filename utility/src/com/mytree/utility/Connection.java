@@ -1,9 +1,11 @@
 package com.mytree.utility;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,4 +24,14 @@ public class Connection {
         }
         return null;
     }
+
+    public static boolean isWIFI(NetworkInfo info){
+        return info.getType()==ConnectivityManager.TYPE_WIFI;
+    }
+
+    public static TelephonyManager getPhoneNetwork(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return telephonyManager;
+    }
+
 }

@@ -4,23 +4,30 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mytree.utility.Connection;
+import com.mytree.utility.Location;
 import com.mytree.utility.SMS;
+import com.mytree.utility.modal.BaseStation;
 
 public class Main extends Activity {
 
     private Button btnSend;
     private Button btnGetConnection;
+    private Button btnGetStation;
     private TextView txtConnection;
 
     /**
@@ -66,6 +73,27 @@ public class Main extends Activity {
         });
 
         txtConnection = (TextView) findViewById(R.id.txtConnectionState);
+
+        btnGetStation = (Button) findViewById(R.id.btnGetBaseStation);
+        btnGetStation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                try {
+                    final Context ctx=v.getContext();
+                    Location.getBaseStation(v.getContext(), new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            Bundle data=msg.getData();
+                            String json=data.getString("json");
+                            Log.i("mylog",json);
+                            Toast.makeText(ctx, "执行完成"+json, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } catch (Exception ex) {
+                    Toast.makeText(v.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void sendMessage() {
@@ -74,6 +102,5 @@ public class Main extends Activity {
         if (SMS.isPhoneNumber(phoneNo) && !SMS.isEmptyMessage(message)) {
             SMS.send(this, phoneNo, message);
         }
-
     }
 }

@@ -28,6 +28,15 @@
             android:layout_height="wrap_content"
             android:text="GET CONNECTION"
             android:id="@+id/btnGetConnection"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtBaseStationInfo" android:layout_gravity="center"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="GET BASE STATION"
+            android:id="@+id/btnGetBaseStation"/>
 
 </LinearLayout>
 
