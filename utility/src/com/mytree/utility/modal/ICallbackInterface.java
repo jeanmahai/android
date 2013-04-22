@@ -7,7 +7,7 @@ package com.mytree.utility.modal;
  * Time: 下午6:46
  * To change this template use File | Settings | File Templates.
  */
-public interface CallbackInterface {
+public interface ICallbackInterface {
     void callback();
     void callback(Object args);
 }

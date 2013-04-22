@@ -45,34 +45,20 @@ public class Main extends Activity {
             }
         });
 
+        txtConnection = (TextView) findViewById(R.id.txtConnectionState);
         btnGetConnection = (Button) findViewById(R.id.btnGetConnection);
         btnGetConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //To change body of implemented methods use File | Settings | File Templates.
-                //SecurityManager security=new SecurityManager();
-                //if(checkPermission())
-//                PackageManager pm=getPackageManager();
-//                if(pm.checkPermission("android.permission.ACCESS_NETWORK_STATE","com.mytree.EasySecretary")==PackageManager.PERMISSION_GRANTED){
-//                    txtConnection.setText("当前程序包含网络状态的权限");
-//                }
-//                else{
-//                    txtConnection.setText("当前程序不包含网络状态的权限");
-//                }
-//                try {
                 NetworkInfo netWork = Connection.getConnection(v.getContext());
                 if (netWork == null) {
                     txtConnection.setText("当前没有任何网络连接");
                 } else {
                     txtConnection.setText(netWork.getTypeName());
                 }
-//                } catch (Exception ex) {
-//                    txtConnection.setText(ex.getMessage());
-//                }
             }
         });
 
-        txtConnection = (TextView) findViewById(R.id.txtConnectionState);
 
         btnGetStation = (Button) findViewById(R.id.btnGetBaseStation);
         btnGetStation.setOnClickListener(new View.OnClickListener() {
@@ -85,12 +71,11 @@ public class Main extends Activity {
                         public void handleMessage(Message msg) {
                             Bundle data=msg.getData();
                             String json=data.getString("json");
-                            Log.i("mylog",json);
-                            Toast.makeText(ctx, "执行完成"+json, Toast.LENGTH_LONG).show();
+                            Log.i("tag","执行完成"+json);
                         }
                     });
                 } catch (Exception ex) {
-                    Toast.makeText(v.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.i("tag",ex.getMessage());
                 }
             }
         });

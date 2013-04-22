@@ -9,7 +9,7 @@ import android.content.IntentFilter;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 import android.Manifest;
-import com.mytree.utility.modal.CallbackInterface;
+import com.mytree.utility.modal.ICallbackInterface;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -32,7 +32,7 @@ public class SMS {
     }
 
     public static void send(final Context context, final String phoneNumber, String message) {
-        send(context, phoneNumber, message, new CallbackInterface() {
+        send(context, phoneNumber, message, new ICallbackInterface() {
                     @Override
                     public void callback() {
                         //To change body of implemented methods use File | Settings | File Templates.
@@ -51,7 +51,7 @@ public class SMS {
                                 break;
                         }
                     }
-                }, new CallbackInterface() {
+                }, new ICallbackInterface() {
                     @Override
                     public void callback() {
                         //To change body of implemented methods use File | Settings | File Templates.
@@ -69,8 +69,8 @@ public class SMS {
     public static void send(Context context,
                             String phoneNumber,
                             String message,
-                            final CallbackInterface sent,
-                            final CallbackInterface delivered) {
+                            final ICallbackInterface sent,
+                            final ICallbackInterface delivered) {
         if (!Permission.hasPermission(context, Manifest.permission.SEND_SMS, true)) {
             return;
         }
