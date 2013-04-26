@@ -2,6 +2,7 @@ package com.mytree.utility;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.LocationManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -40,8 +41,21 @@ public class Location {
 
     }
 
-    public static void getMyLocation() {
-
+    private static LocationManager locationManager;
+    private static String provider;
+    public static android.location.Location getMyLocation(Context context) {
+        if (locationManager == null)
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (provider == null) {
+            Criteria criteria = new Criteria();
+            provider = locationManager.getBestProvider(criteria, true);
+        }
+        if (provider != null) {
+            return locationManager.getLastKnownLocation(provider);
+        } else {
+            L.i("provider is null");
+            return null;
+        }
     }
 
     /*判断手机是否支持GPS*/
@@ -93,15 +107,14 @@ public class Location {
 //        bs.mnc = Integer.parseInt(operator.substring(3));
 //        bs.id = location.getCid();
 //        bs.lac = location.getLac();
-        final int mcc=Integer.parseInt(operator.substring(0, 3));
-        final int mnc=Integer.parseInt(operator.substring(3));
-        final int id=location.getCid();
-        final int lac=location.getLac();
-
+        final int mcc = Integer.parseInt(operator.substring(0, 3));
+        final int mnc = Integer.parseInt(operator.substring(3));
+        final int id = location.getCid();
+        final int lac = location.getLac();
 
 
 /** 发出POST数据并获取返回数据 */
-        Runnable runnable=new Runnable() {
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 //To change body of implemented methods use File | Settings | File Templates.
@@ -128,7 +141,7 @@ public class Location {
                     JSONArray towerarray = new JSONArray();
                     towerarray.put(tower);
 
-                    data.put("cell_towers",towerarray);
+                    data.put("cell_towers", towerarray);
 
                     StringEntity query = new StringEntity(data.toString());
                     post.setEntity(query);
@@ -145,28 +158,27 @@ public class Location {
                     JSONObject json = new JSONObject(strBuff.toString());
                     JSONObject subjosn = new JSONObject(json.getString("location"));
 
-                    Message msg=new Message();
-                    Bundle data2=new Bundle();
-                    data2.putString("json",subjosn.toString());
+                    Message msg = new Message();
+                    Bundle data2 = new Bundle();
+                    data2.putString("json", subjosn.toString());
                     msg.setData(data2);
                     success.sendMessage(msg);
                 } catch (IOException e) {
-                    Message msg=new Message();
-                    Bundle data2=new Bundle();
-                    data2.putString("json",e.getMessage());
+                    Message msg = new Message();
+                    Bundle data2 = new Bundle();
+                    data2.putString("json", e.getMessage());
                     msg.setData(data2);
                     success.sendMessage(msg);
                 } catch (JSONException e) {
-                    Message msg=new Message();
-                    Bundle data2=new Bundle();
-                    data2.putString("json",e.getMessage());
+                    Message msg = new Message();
+                    Bundle data2 = new Bundle();
+                    data2.putString("json", e.getMessage());
                     msg.setData(data2);
                     success.sendMessage(msg);
-                }
-                catch (Exception e){
-                    Message msg=new Message();
-                    Bundle data2=new Bundle();
-                    data2.putString("json",e.getMessage());
+                } catch (Exception e) {
+                    Message msg = new Message();
+                    Bundle data2 = new Bundle();
+                    data2.putString("json", e.getMessage());
                     msg.setData(data2);
                     success.sendMessage(msg);
                 }
