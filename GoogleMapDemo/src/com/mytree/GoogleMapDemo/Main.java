@@ -1,4 +1,4 @@
-package com.example.mapdemo;
+package com.mytree.GoogleMapDemo;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -13,7 +13,6 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mytree.GoogleMapDemo.R;
 
 public class Main extends Activity implements LocationListener {
 
