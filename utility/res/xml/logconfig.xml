@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<logconfig xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--verbose,debug,info,warn,error-->
+    <!--文件输出方式-->
+    <file enable="true">
+        <level val="verbose"/>
+        <dir val="mytree/logs"/>
+        <!--文件名称{date}-->
+        <fileName val="{date}.txt"/>
+    </file>
+    <!--崩溃日志-->
+    <file enable="false">
+        <level val="verbose"/>
+        <dir val="mytree/crashs"/>
+        <fileName val="crash_{date}.txt"/>
+    </file>
+    <!--console输出方式-->
+    <console enable="false">
+        <!--等级-->
+        <level val="verbose"/>
+        <tag val="utility_tag"/>
+    </console>
+    <!--邮件输出方式-->
+    <email enable="false">
+        <level/>
+        <adress/>
+    </email>
+</logconfig>

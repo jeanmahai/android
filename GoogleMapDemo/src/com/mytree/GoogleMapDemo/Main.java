@@ -9,12 +9,25 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mytree.utility.ConfigManager;
+import com.mytree.utility.L;
+import com.mytree.utility.SafeActivity;
+import com.mytree.utility.modal.LogConfig;
+import com.mytree.utility.modal.LogConfigForFile;
+import org.xml.sax.SAXException;
 
-public class Main extends Activity implements LocationListener {
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.List;
+
+public class Main extends SafeActivity implements LocationListener {
 
     private final String LOG_TAG = "GOOGLE_MAP";
 
@@ -23,6 +36,10 @@ public class Main extends Activity implements LocationListener {
     private LocationManager locationManager;
     private String provider;
 
+//
+//    private Button btn;
+//    private EditText txt;
+
     /**
      * Called when the activity is first created.
      */
@@ -30,22 +47,33 @@ public class Main extends Activity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        L.setupConfig(this);
+        L.i("onCreate");
+//        txt=(EditText)findViewById(R.id.editText);
+//        btn=(Button)findViewById(R.id.button);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                L.v(txt.getText().toString());
+//            }
+//        });
 
-        fragmentManager = getFragmentManager();
-
-        if (map == null) {
-            map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
-            if (map == null) {
-                log("当前地图不可用");
-            } else {
-                log("地图已准备就绪");
-                Location location= getLocation();
-                LatLng latlng=new LatLng(location.getLatitude(),location.getLongitude());
-                Marker current=map.addMarker(new MarkerOptions().position(latlng).title("my position"));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,15));
-                map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
-            }
-        }
+//        fragmentManager = getFragmentManager();
+//
+//        if (map == null) {
+//            map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
+//            if (map == null) {
+//                log("当前地图不可用");
+//            } else {
+//                log("地图已准备就绪");
+//                Location location = getLocation();
+//                LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+//                Marker current = map.addMarker(new MarkerOptions().position(latlng).title("my position"));
+//                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
+//                map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
+//
+//            }
+//        }
     }
 
     private void configMapOption() {
@@ -55,7 +83,7 @@ public class Main extends Activity implements LocationListener {
     }
 
     private void log(String msg) {
-        Log.i(LOG_TAG, msg);
+        L.i(msg);
     }
 
     private Location getLocation() {
@@ -74,26 +102,31 @@ public class Main extends Activity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        L.i("onLocationChanged");
         //To change body of implemented methods use File | Settings | File Templates.
-        log(String.format("lat:%s,lgn:%s", location.getLatitude(), location.getLongitude()));
-        LatLng latlng=new LatLng(location.getLatitude(),location.getLongitude());
-        Marker current=map.addMarker(new MarkerOptions().position(latlng).title("my position"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,15));
-        map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
+//        log(String.format("lat:%s,lgn:%s", location.getLatitude(), location.getLongitude()));
+//        LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+        L.i(String.format("lat:%s,lgn:%s", location.getLatitude(), location.getLongitude()));
+//        Marker current = map.addMarker(new MarkerOptions().position(latlng).title("my position"));
+//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
+//        map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         //To change body of implemented methods use File | Settings | File Templates.
+        L.i("onStatusChanged");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
         //To change body of implemented methods use File | Settings | File Templates.
+        L.i("onProviderEnabled");
     }
 
     @Override
     public void onProviderDisabled(String provider) {
         //To change body of implemented methods use File | Settings | File Templates.
+        L.i("onProviderDisabled");
     }
 }

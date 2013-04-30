@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: jm96
@@ -44,8 +46,8 @@ public class GlobalExceptionHandler implements Thread.UncaughtExceptionHandler {
                 Looper.loop();
             }
         }.start();
-        L.e(message);
-
+        //crash log
+        L.v(message);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

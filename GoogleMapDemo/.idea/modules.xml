@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GoogleMapDemo.iml" filepath="$PROJECT_DIR$/GoogleMapDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/../google-play-services_lib/google-play-services_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../utility/utility.iml" filepath="$PROJECT_DIR$/../utility/utility.iml" />
     </modules>
   </component>
 </project>
