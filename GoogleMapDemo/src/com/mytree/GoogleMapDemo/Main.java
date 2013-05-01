@@ -63,16 +63,19 @@ public class Main extends SafeActivity {
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
                 L.i("onStatusChanged");
+                L.i(String.format("提供者:%s",provider));
             }
 
             @Override
             public void onProviderEnabled(String provider) {
                 L.i("onProviderEnabled");
+                L.i(String.format("提供者:%s已启用",provider));
             }
 
             @Override
             public void onProviderDisabled(String provider) {
                 L.i("onProviderDisabled");
+                L.i(String.format("提供者:%s已禁用",provider));
             }
         };
 
