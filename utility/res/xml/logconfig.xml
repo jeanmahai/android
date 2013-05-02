@@ -16,7 +16,7 @@
         <fileName val="crash_{date}.txt"/>
     </file>
     <!--console输出方式-->
-    <console enable="false">
+    <console enable="true">
         <!--等级-->
         <level val="verbose"/>
         <tag val="utility_tag"/>

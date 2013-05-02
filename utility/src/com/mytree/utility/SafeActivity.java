@@ -14,6 +14,7 @@ public class SafeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
+        L.setupConfig(this);
         L.i("create global exception handler");
         GlobalExceptionHandler exHandler=GlobalExceptionHandler.getInstance();
         exHandler.init(this);
